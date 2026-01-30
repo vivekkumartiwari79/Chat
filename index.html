@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Private Chat</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#ece5dd;height:100vh}
+
+.app{
+  max-width:900px;
+  height:100vh;
+  margin:auto;
+  display:flex;
+  background:#fff;
+}
+
+/* USERS */
+.users{
+  width:30%;
+  border-right:1px solid #ddd;
+  overflow-y:auto;
+}
+.users h3{
+  padding:15px;
+  background:#075e54;
+  color:#fff;
+}
+.user{
+  padding:12px;
+  cursor:pointer;
+  border-bottom:1px solid #eee;
+}
+.user:hover{background:#f1f1f1}
+
+/* CHAT */
+.msger{
+  width:70%;
+  display:flex;
+  flex-direction:column;
+}
+.msger-header{
+  background:#075e54;
+  color:#fff;
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+}
+.msger-chat{
+  flex:1;
+  padding:15px;
+  overflow-y:auto;
+  background:#e5ddd5;
+}
+.msg{display:flex;margin-bottom:15px}
+.msg-bubble{max-width:75%;padding:10px;border-radius:10px;background:#fff}
+.right-msg{justify-content:flex-end}
+.right-msg .msg-bubble{background:#dcf8c6}
+.msger-inputarea{
+  display:flex;
+  padding:10px;
+  background:#f0f0f0;
+}
+.msger-input{flex:1;padding:10px;border-radius:20px;border:none}
+.msger-send-btn{margin-left:10px;padding:10px 20px;border-radius:20px;border:none;background:#075e54;color:#fff}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <!-- USER LIST -->
+  <div class="users">
+    <h3>Users</h3>
+    <div id="userList"></div>
+  </div>
+
+  <!-- CHAT -->
+  <section class="msger">
+    <header class="msger-header">
+      <div id="chatWith">Select a user</div>
+      <button id="logoutBtn" style="background:none;border:none;color:#fff">
+        <i class="fas fa-sign-out-alt"></i>
+      </button>
+    </header>
+
+    <main class="msger-chat" id="chatBox"></main>
+
+    <form class="msger-inputarea" id="chatForm">
+      <input id="messageInput" class="msger-input" placeholder="Type message..." required>
+      <button class="msger-send-btn">Send</button>
+    </form>
+  </section>
+
+</div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+<script>
+firebase.initializeApp({
+  apiKey: "AIzaSyBpXv6AvjdLdsQxHUwZqJEqWvyQhWUZzUM",
+  authDomain: "contactme-14cbd.firebaseapp.com",
+  databaseURL: "https://contactme-14cbd-default-rtdb.firebaseio.com",
+  projectId: "contactme-14cbd",
+});
+
+const auth = firebase.auth();
+const db = firebase.database();
+
+let currentUser = null;
+let chatRef = null;
+let selectedUser = null;
+
+const userList = document.getElementById("userList");
+const chatBox = document.getElementById("chatBox");
+const chatWith = document.getElementById("chatWith");
+
+/* AUTH */
+auth.onAuthStateChanged(user => {
+  if (!user) location.href = "login.html";
+  currentUser = user;
+  saveUser(user);
+  loadUsers();
+});
+
+/* SAVE USER */
+function saveUser(user){
+  db.ref("users/"+user.uid).set({
+    email:user.email
+  });
+}
+
+/* LOAD USERS */
+function loadUsers(){
+  userList.innerHTML="";
+  db.ref("users").on("value", snap=>{
+    userList.innerHTML="";
+    snap.forEach(child=>{
+      if(child.key!==currentUser.uid){
+        const div=document.createElement("div");
+        div.className="user";
+        div.textContent=child.val().email;
+        div.onclick=()=>openChat(child.key, child.val().email);
+        userList.appendChild(div);
+      }
+    });
+  });
+}
+
+/* CHAT ID */
+function chatId(a,b){
+  return a<b ? a+"_"+b : b+"_"+a;
+}
+
+/* OPEN CHAT */
+function openChat(uid,email){
+  chatWith.textContent="Chat with "+email;
+  chatBox.innerHTML="";
+  selectedUser=uid;
+
+  if(chatRef) chatRef.off();
+
+  chatRef=db.ref("chats/"+chatId(currentUser.uid,uid)+"/messages");
+  chatRef.on("child_added", snap=>{
+    const msg=snap.val();
+    const side=msg.sender===currentUser.uid?"right-msg":"left-msg";
+    chatBox.insertAdjacentHTML("beforeend",
+      `<div class="msg ${side}">
+        <div class="msg-bubble">${msg.text}</div>
+      </div>`
+    );
+    chatBox.scrollTop=chatBox.scrollHeight;
+  });
+}
+
+/* SEND MESSAGE */
+document.getElementById("chatForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  if(!chatRef) return alert("Select a user first");
+
+  chatRef.push({
+    sender:currentUser.uid,
+    text:messageInput.value,
+    time:Date.now()
+  });
+  messageInput.value="";
+});
+
+/* LOGOUT */
+logoutBtn.onclick=()=>auth.signOut();
+</script>
+
+</body>
+</html>
