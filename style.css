@@ -226,9 +226,8 @@ message-area
     border: none;
     border-radius: 0;
     outline: 0;
-    height: 100%;
+    height: calc(100vh - 185px);
 }
-
 .chat-area .modal-dialog-scrollable {
     height: 100% !important;
 }
@@ -776,6 +775,7 @@ button:focus {
     display: flex;
     gap: 20px;
 }
+
 
 
 
