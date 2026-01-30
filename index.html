@@ -223,11 +223,11 @@ jQuery(document).ready(function ($) {
   });
 
   // Handle iPhone swipe-back / browser back
-  window.onpopstate = function (event) {
-    if ($(".chatbox").hasClass("showbox")) {
-      closeChat();
-    }
-  };
+  // window.onpopstate = function (event) {
+  //   if ($(".chatbox").hasClass("showbox")) {
+  //     closeChat();
+  //   }
+  // };
 
   function closeChat() {
     $(".chatbox").removeClass("showbox");
@@ -241,3 +241,4 @@ logoutBtn.onclick=()=>auth.signOut();
 
 </body>
 </html>
+
