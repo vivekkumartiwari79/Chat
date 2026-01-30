@@ -217,7 +217,7 @@ message-area
     outline: 0;
     height: 100%;
     overflow: hidden;
-    width: 300px;
+    width: 350px;
     float: left;
     padding: 15px;
 }
@@ -769,3 +769,4 @@ button:focus {
     display: flex;
     justify-content: space-between;
 }
+
