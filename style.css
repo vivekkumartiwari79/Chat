@@ -708,9 +708,14 @@ button:focus {
 
 @media (max-width: 767px) {
     .chat-icon {
-        display: block;
-        margin-right: 5px;
-    }
+    display: block;
+    margin-right: 5px;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    top: 2px;
+    color: #3867d6;
+}
     .chatlist {
         width: 100%;
     }
@@ -769,4 +774,5 @@ button:focus {
     display: flex;
     justify-content: space-between;
 }
+
 
