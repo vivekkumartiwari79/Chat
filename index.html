@@ -24,7 +24,7 @@
           <!-- ================= USER LIST ================= -->
           <div class="chatlist">
             <div class="modal-content">
-            <div class="chat-header">
+              <div class="chat-header">
                 <div class="logo">
                   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
                   <path d="M0 0 C13.2 0 26.4 0 40 0 C40 13.2 40 26.4 40 40 C26.8 40 13.6 40 0 40 C0 26.8 0 13.6 0 0 Z " fill="#FDFCFD" transform="translate(0,0)"></path>
@@ -36,6 +36,7 @@
                  <h5>Users</h5> 
                 </div>
               </div>
+
               <div class="modal-body">
                 <div class="chat-lists">
                   <div class="chat-list" id="userList">
@@ -73,10 +74,7 @@
                   <ul id="chatBox">
                     <!-- MESSAGES LOAD HERE -->
                   </ul>
-                </div>
-              </div>
-
-              <!-- SEND BOX -->
+                   <!-- SEND BOX -->
               <div class="send-box">
                 <form id="chatForm">
                   <input type="text" id="messageInput" class="form-control" placeholder="Write message…" required>
@@ -86,9 +84,10 @@
                 </form>
               </div>
 
+                </div>
+              </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
@@ -227,12 +226,7 @@ jQuery(document).ready(function ($) {
     history.back(); // sync with browser history
   });
 
-  // Handle iPhone swipe-back / browser back
-  // window.onpopstate = function (event) {
-  //   if ($(".chatbox").hasClass("showbox")) {
-  //     closeChat();
-  //   }
-  // };
+ 
 
   function closeChat() {
     $(".chatbox").removeClass("showbox");
@@ -246,6 +240,3 @@ logoutBtn.onclick=()=>auth.signOut();
 
 </body>
 </html>
-
-
-
