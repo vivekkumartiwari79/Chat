@@ -553,7 +553,7 @@ li.repaly .time {
 }
 
 .send-box {
-    padding: 15px;
+    padding: 15px 5px;
     position: absolute;
     border-top: 1px solid #ccc;
     bottom: 0;
@@ -575,7 +575,7 @@ ul#chatBox::-webkit-scrollbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 15px;
+  /* margin-bottom: 15px; */
 }
 
 .send-box .form-control {
@@ -800,4 +800,5 @@ button:focus {
   display: flex;
   gap: 20px;
 }
+
 
