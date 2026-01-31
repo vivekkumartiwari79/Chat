@@ -560,6 +560,17 @@ li.repaly .time {
     width: -webkit-fill-available;
 }
 
+ul#chatBox {
+    overflow: hidden;
+    overflow-y: scroll;
+    height: 86% !important;
+    position: absolute;
+    padding: 0 10px 0;
+    width: 97%;
+}
+ul#chatBox::-webkit-scrollbar {
+    display: none;
+}
 .send-box form {
   display: flex;
   align-items: center;
