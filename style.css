@@ -789,6 +789,11 @@ button:focus {
   ul#chatBox {
     width: -webkit-fill-available;
 }
+    .message-area {
+ 
+    height: -webkit-fill-available !important;
+
+}
 }
 /* Default: hide back button (desktop) */
 .modal-dialog-scrollable .modal-content {
@@ -803,6 +808,7 @@ button:focus {
   display: flex;
   gap: 20px;
 }
+
 
 
 
