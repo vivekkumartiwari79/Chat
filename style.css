@@ -786,6 +786,9 @@ button:focus {
     border-top-right-radius: 6px;
     border-bottom-left-radius: 6px;
   }
+  ul#chatBox {
+    width: -webkit-fill-available;
+}
 }
 /* Default: hide back button (desktop) */
 .modal-dialog-scrollable .modal-content {
@@ -800,5 +803,6 @@ button:focus {
   display: flex;
   gap: 20px;
 }
+
 
 
