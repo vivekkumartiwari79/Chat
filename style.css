@@ -557,9 +557,9 @@ li.repaly .time {
     position: absolute;
     border-top: 1px solid #ccc;
     bottom: 0;
+    background: #fff;
     width: -webkit-fill-available;
 }
-
 ul#chatBox {
     overflow: hidden;
     overflow-y: scroll;
@@ -800,3 +800,4 @@ button:focus {
   display: flex;
   gap: 20px;
 }
+
