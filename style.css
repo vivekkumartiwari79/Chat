@@ -336,9 +336,10 @@ a.add img {
 }
 
 .chat-list a.d-flex {
-  margin-bottom: 15px;
-  position: relative;
-  text-decoration: none;
+    margin-bottom: 15px;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
 }
 
 .chat-list .active {
@@ -808,6 +809,7 @@ button:focus {
   display: flex;
   gap: 20px;
 }
+
 
 
 
